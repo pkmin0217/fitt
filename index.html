@@ -348,6 +348,179 @@
   .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
   .footer-links a:hover { color: var(--blue-400); }
 
+  /* AUTH MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px); z-index: 1000;
+    display: none; align-items: center; justify-content: center;
+    padding: 1rem; opacity: 0; transition: opacity 0.3s;
+  }
+  .modal-overlay.active { display: flex; opacity: 1; }
+  .auth-modal {
+    background: var(--white); width: 100%; max-width: 440px;
+    border-radius: 28px; box-shadow: 0 24px 64px rgba(0,0,0,0.15);
+    overflow: hidden; transform: translateY(20px); transition: transform 0.3s;
+    position: relative;
+  }
+  .modal-overlay.active .auth-modal { transform: translateY(0); }
+  .modal-close {
+    position: absolute; top: 20px; right: 20px;
+    background: var(--gray-50); border: none; width: 32px; height: 32px;
+    border-radius: 50%; cursor: pointer; color: var(--gray-400);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; z-index: 10;
+  }
+  .modal-close:hover { background: var(--gray-100); color: var(--gray-800); }
+
+  .auth-header { padding: 40px 40px 24px; text-align: center; }
+  .auth-header h2 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .auth-header p { font-size: 14px; color: var(--gray-400); }
+
+  .auth-tabs {
+    display: flex; border-bottom: 1.5px solid var(--gray-100);
+    padding: 0 40px; gap: 24px;
+  }
+  .auth-tab {
+    padding: 16px 4px; font-size: 15px; font-weight: 700;
+    color: var(--gray-400); cursor: pointer; position: relative;
+    transition: color 0.2s;
+  }
+  .auth-tab.active { color: var(--blue-600); }
+  .auth-tab.active::after {
+    content: ''; position: absolute; bottom: -1.5px; left: 0; right: 0;
+    height: 2px; background: var(--blue-600);
+  }
+
+  .auth-content { padding: 32px 40px 40px; }
+  .auth-view { display: none; }
+  .auth-view.active { display: block; animation: fadeIn 0.3s ease-out; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Social Login */
+  .social-login { display: grid; gap: 10px; margin-bottom: 24px; }
+  .social-btn {
+    width: 100%; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s; border: none;
+  }
+  .social-btn:active { transform: scale(0.98); }
+  .social-btn.kakao { background: #FEE500; color: #191919; }
+  .social-btn.naver { background: #03C75A; color: #FFFFFF; }
+  .social-btn.google {
+    background: #FFFFFF; color: #1F2937;
+    border: 1.5px solid var(--gray-200);
+  }
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    color: var(--gray-200); font-size: 12px; font-weight: 500;
+    margin: 24px 0;
+  }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--gray-100); }
+
+  /* Forms */
+  .form-group { margin-bottom: 20px; }
+  .form-group label {
+    display: block; font-size: 13px; font-weight: 700;
+    color: var(--gray-800); margin-bottom: 8px;
+  }
+  .input-wrapper { position: relative; }
+  .auth-input {
+    width: 100%; height: 52px; padding: 0 16px;
+    background: var(--gray-50); border: 1.5px solid var(--gray-200);
+    border-radius: 12px; font-size: 15px; color: var(--gray-800);
+    transition: all 0.2s; outline: none;
+  }
+  .auth-input:focus { border-color: var(--blue-400); background: var(--white); box-shadow: 0 0 0 4px rgba(59,130,246,0.1); }
+  .auth-input.error { border-color: #EF4444; background: #FEF2F2; }
+  .error-msg { color: #EF4444; font-size: 12px; margin-top: 6px; display: none; }
+  .auth-input.error + .error-msg { display: block; }
+
+  .pw-toggle {
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; color: var(--gray-400);
+    padding: 4px; display: flex; align-items: center;
+  }
+
+  .form-options {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px; font-size: 13px;
+  }
+  .checkbox-group { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .checkbox-group input { cursor: pointer; }
+  .find-pw { color: var(--gray-400); text-decoration: none; font-weight: 500; }
+  .find-pw:hover { color: var(--blue-600); }
+
+  .auth-submit {
+    width: 100%; height: 56px; background: var(--blue-600);
+    color: var(--white); border: none; border-radius: 14px;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+    transition: all 0.2s; box-shadow: 0 4px 16px rgba(37,99,235,0.2);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .auth-submit:hover { background: var(--blue-700); transform: translateY(-1px); }
+  .auth-submit:disabled { background: var(--gray-200); cursor: not-allowed; box-shadow: none; }
+
+  /* Signup Specific */
+  .type-selector { display: flex; gap: 8px; margin-bottom: 24px; }
+  .type-btn {
+    flex: 1; height: 48px; border-radius: 10px;
+    border: 1.5px solid var(--gray-200); background: var(--white);
+    color: var(--gray-400); font-size: 14px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .type-btn.active { border-color: var(--blue-600); color: var(--blue-600); background: var(--blue-50); }
+
+  .strength-meter { height: 4px; background: var(--gray-100); border-radius: 2px; margin-top: 8px; overflow: hidden; display: flex; gap: 4px; }
+  .strength-bar { flex: 1; height: 100%; background: var(--gray-200); transition: all 0.3s; }
+  .strength-text { font-size: 11px; margin-top: 6px; font-weight: 600; text-align: right; }
+  .strength-bar.weak { background: #EF4444; }
+  .strength-bar.medium { background: #F59E0B; }
+  .strength-bar.strong { background: #10B981; }
+
+  .terms-section {
+    margin: 24px 0; padding: 16px; background: var(--gray-50); border-radius: 12px;
+  }
+  .terms-all { border-bottom: 1px solid var(--gray-200); padding-bottom: 12px; margin-bottom: 12px; }
+  .terms-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; color: var(--gray-600); }
+  .terms-item:last-child { margin-bottom: 0; }
+  .terms-item span.required { color: var(--blue-600); font-weight: 700; }
+  .terms-item a { color: var(--gray-400); text-decoration: underline; }
+
+  /* Toast & Success */
+  .toast-container {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+    z-index: 2000; display: flex; flex-direction: column; gap: 8px; pointer-events: none;
+  }
+  .toast {
+    background: rgba(31, 41, 55, 0.9); color: var(--white);
+    padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 600;
+    backdrop-filter: blur(8px); box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    animation: toastUp 0.3s ease-out forwards;
+  }
+  @keyframes toastUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .success-view { display: none; text-align: center; padding: 40px 0; }
+  .success-icon {
+    width: 64px; height: 64px; background: #10B981; color: var(--white);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 32px; margin: 0 auto 24px;
+  }
+
+  /* Spinner */
+  .spinner {
+    width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3);
+    border-top-color: var(--white); border-radius: 50%;
+    animation: spin 0.8s linear infinite; display: none;
+  }
+  .loading .spinner { display: block; }
+  .loading .btn-text { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
   @media (max-width: 700px) {
     .search-row { grid-template-columns: 1fr 1fr; }
     .search-btn { grid-column: 1 / -1; }
@@ -355,6 +528,8 @@
     .steps::before { display: none; }
     .reviews-row { flex-direction: column; }
     .nav-links { display: none; }
+    .auth-modal { border-radius: 28px 28px 0 0; position: fixed; bottom: 0; transform: translateY(100%); }
+    .modal-overlay.active .auth-modal { transform: translateY(0); }
   }
 </style>
 </head>
@@ -367,9 +542,9 @@
     <a href="#trainers">트레이너 찾기</a>
     <a href="#how">이용 방법</a>
     <a href="#categories">운동 종목</a>
-    <a href="#">트레이너 등록</a>
+    <a href="#" class="open-auth" data-view="login">로그인</a>
   </div>
-  <a href="#" class="nav-cta">무료로 시작하기</a>
+  <a href="#" class="nav-cta open-auth" data-view="signup">무료로 시작하기</a>
 </nav>
 
 <!-- HERO -->
@@ -378,7 +553,7 @@
   <h1>내 목표에 딱 맞는<br><span class="highlight">트레이너</span>를 찾아드립니다</h1>
   <p>다이어트, 근력, 재활, 요가까지 — 전국 3,000명의 검증된 트레이너와 지금 바로 연결하세요.</p>
   <div class="hero-buttons">
-    <a href="#search" class="btn-primary">트레이너 찾기 →</a>
+    <a href="#search" class="btn-primary open-auth" data-view="signup">트레이너 찾기 →</a>
     <a href="#how" class="btn-secondary">이용 방법 보기</a>
   </div>
   <div class="hero-stats">
@@ -643,6 +818,334 @@
     <a href="#">고객센터</a>
   </div>
 </footer>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="auth-modal-overlay">
+  <div class="auth-modal">
+    <button class="modal-close" id="modal-close-btn">&times;</button>
+    
+    <div id="auth-main-view">
+      <div class="auth-header">
+        <h2 id="auth-title">반가워요!</h2>
+        <p id="auth-subtitle">FitMatch와 함께 건강한 변화를 시작하세요</p>
+      </div>
+
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-tab="login">로그인</div>
+        <div class="auth-tab" data-tab="signup">회원가입</div>
+      </div>
+
+      <div class="auth-content">
+        <!-- Social Login -->
+        <div class="social-login">
+          <button class="social-btn kakao">
+            <span style="font-size: 20px;">💬</span> 카카오로 로그인
+          </button>
+          <button class="social-btn naver">
+            <span style="font-size: 20px;">N</span> 네이버로 로그인
+          </button>
+          <button class="social-btn google">
+            <img src="https://www.google.com/favicon.ico" width="18" height="18" alt="Google"> Google로 로그인
+          </button>
+        </div>
+
+        <div class="divider">또는 이메일로 로그인</div>
+
+        <!-- LOGIN VIEW -->
+        <div class="auth-view active" id="login-view">
+          <form id="login-form">
+            <div class="form-group">
+              <label>이메일</label>
+              <input type="email" class="auth-input" placeholder="example@email.com" required>
+              <div class="error-msg">올바른 이메일 형식을 입력해주세요.</div>
+            </div>
+            <div class="form-group">
+              <label>비밀번호</label>
+              <div class="input-wrapper">
+                <input type="password" class="auth-input" placeholder="비밀번호를 입력해주세요" required>
+                <button type="button" class="pw-toggle">👁️</button>
+              </div>
+              <div class="error-msg">비밀번호를 입력해주세요.</div>
+            </div>
+            <div class="form-options">
+              <label class="checkbox-group">
+                <input type="checkbox"> 로그인 상태 유지
+              </label>
+              <a href="#" class="find-pw">비밀번호 찾기</a>
+            </div>
+            <button type="submit" class="auth-submit">
+              <span class="btn-text">로그인</span>
+              <div class="spinner"></div>
+            </button>
+          </form>
+        </div>
+
+        <!-- SIGNUP VIEW -->
+        <div class="auth-view" id="signup-view">
+          <div class="type-selector">
+            <button class="type-btn active" data-type="user">일반 회원</button>
+            <button class="type-btn" data-type="trainer">트레이너</button>
+          </div>
+          <form id="signup-form">
+            <div class="form-group">
+              <label>이메일</label>
+              <input type="email" class="auth-input" placeholder="example@email.com" required>
+              <div class="error-msg">이미 사용 중이거나 올바르지 않은 이메일입니다.</div>
+            </div>
+            <div class="form-group">
+              <label>비밀번호</label>
+              <div class="input-wrapper">
+                <input type="password" id="signup-pw" class="auth-input" placeholder="8자 이상, 영문/숫자/특수문자 포함" required>
+                <button type="button" class="pw-toggle">👁️</button>
+              </div>
+              <div class="strength-meter">
+                <div class="strength-bar"></div>
+                <div class="strength-bar"></div>
+                <div class="strength-bar"></div>
+              </div>
+              <div class="strength-text">비밀번호를 입력해주세요</div>
+            </div>
+            <div class="form-group">
+              <label>비밀번호 확인</label>
+              <div class="input-wrapper">
+                <input type="password" id="signup-pw-confirm" class="auth-input" placeholder="비밀번호를 다시 입력해주세요" required>
+                <button type="button" class="pw-toggle">👁️</button>
+              </div>
+              <div class="error-msg">비밀번호가 일치하지 않습니다.</div>
+            </div>
+
+            <div class="terms-section">
+              <div class="terms-all">
+                <label class="checkbox-group" style="font-weight: 700;">
+                  <input type="checkbox" id="terms-all"> 약관 전체 동의
+                </label>
+              </div>
+              <div class="terms-item">
+                <label class="checkbox-group">
+                  <input type="checkbox" class="terms-check" required> <span class="required">(필수)</span> 서비스 이용약관 동의
+                </label>
+                <a href="#">보기</a>
+              </div>
+              <div class="terms-item">
+                <label class="checkbox-group">
+                  <input type="checkbox" class="terms-check" required> <span class="required">(필수)</span> 개인정보 처리방침 동의
+                </label>
+                <a href="#">보기</a>
+              </div>
+              <div class="terms-item">
+                <label class="checkbox-group">
+                  <input type="checkbox" class="terms-check"> (선택) 마케팅 정보 수신 동의
+                </label>
+                <a href="#">보기</a>
+              </div>
+            </div>
+
+            <button type="submit" class="auth-submit" id="signup-submit">
+              <span class="btn-text">가입하기</span>
+              <div class="spinner"></div>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div class="success-view" id="auth-success-view">
+      <div class="success-icon">✓</div>
+      <h2 id="success-title">환영합니다!</h2>
+      <p id="success-msg" style="color: var(--gray-400); margin-bottom: 32px;">FitMatch의 회원이 되신 것을 축하드려요.</p>
+      <button class="btn-primary" style="width: 200px;" id="success-done-btn">시작하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+  // DOM Elements
+  const modalOverlay = document.getElementById('auth-modal-overlay');
+  const modalCloseBtn = document.getElementById('modal-close-btn');
+  const authTabs = document.querySelectorAll('.auth-tab');
+  const authViews = document.querySelectorAll('.auth-view');
+  const openAuthBtns = document.querySelectorAll('.open-auth');
+  const loginForm = document.getElementById('login-form');
+  const signupForm = document.getElementById('signup-form');
+  const pwToggles = document.querySelectorAll('.pw-toggle');
+  const signupPwInput = document.getElementById('signup-pw');
+  const signupPwConfirmInput = document.getElementById('signup-pw-confirm');
+  const strengthBars = document.querySelectorAll('.strength-bar');
+  const strengthText = document.querySelector('.strength-text');
+  const termsAll = document.getElementById('terms-all');
+  const termsChecks = document.querySelectorAll('.terms-check');
+  const toastContainer = document.getElementById('toast-container');
+  const authMainView = document.getElementById('auth-main-view');
+  const authSuccessView = document.getElementById('auth-success-view');
+  const successDoneBtn = document.getElementById('success-done-btn');
+  const typeBtns = document.querySelectorAll('.type-btn');
+
+  // Modal Control
+  function openModal(view = 'login') {
+    modalOverlay.classList.add('active');
+    switchTab(view);
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+    setTimeout(() => {
+      authMainView.style.display = 'block';
+      authSuccessView.style.display = 'none';
+      loginForm.reset();
+      signupForm.reset();
+      resetValidation();
+    }, 300);
+  }
+
+  openAuthBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(btn.dataset.view);
+    });
+  });
+
+  modalCloseBtn.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  // Tab Switching
+  function switchTab(tabName) {
+    authTabs.forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.tab === tabName);
+    });
+    authViews.forEach(view => {
+      view.classList.toggle('active', view.id === `${tabName}-view`);
+    });
+    
+    document.getElementById('auth-title').textContent = tabName === 'login' ? '다시 만나서 반가워요!' : '반가워요!';
+    document.getElementById('auth-subtitle').textContent = tabName === 'login' ? '로그인하여 FitMatch를 이용해보세요' : 'FitMatch와 함께 건강한 변화를 시작하세요';
+  }
+
+  authTabs.forEach(tab => {
+    tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+  });
+
+  // Password Toggle
+  pwToggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = btn.previousElementSibling;
+      const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+      input.setAttribute('type', type);
+      btn.textContent = type === 'password' ? '👁️' : '🔒';
+    });
+  });
+
+  // Signup Type Selection
+  typeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      typeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Password Strength Meter
+  signupPwInput.addEventListener('input', () => {
+    const val = signupPwInput.value;
+    let strength = 0;
+    
+    if (val.length >= 8) strength++;
+    if (/[A-Z]/.test(val) || /[a-z]/.test(val)) strength++;
+    if (/[0-9]/.test(val)) strength++;
+    if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+    strengthBars.forEach((bar, i) => {
+      bar.className = 'strength-bar';
+      if (i < strength - 1) {
+        if (strength <= 2) bar.classList.add('weak');
+        else if (strength === 3) bar.classList.add('medium');
+        else bar.classList.add('strong');
+      }
+    });
+
+    if (val.length === 0) strengthText.textContent = '비밀번호를 입력해주세요';
+    else if (strength <= 2) strengthText.textContent = '취약함 (보완 필요)';
+    else if (strength === 3) strengthText.textContent = '보통 (추가 권장)';
+    else strengthText.textContent = '강력함 (안전)';
+  });
+
+  // Terms Agreement
+  termsAll.addEventListener('change', () => {
+    termsChecks.forEach(check => check.checked = termsAll.checked);
+  });
+
+  termsChecks.forEach(check => {
+    check.addEventListener('change', () => {
+      const allChecked = Array.from(termsChecks).every(c => c.checked);
+      termsAll.checked = allChecked;
+    });
+  });
+
+  // Validation Reset
+  function resetValidation() {
+    document.querySelectorAll('.auth-input').forEach(input => input.classList.remove('error'));
+  }
+
+  // Toast System
+  function showToast(msg) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    toastContainer.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
+  // Form Submission
+  async function handleSubmit(form, type) {
+    form.classList.add('loading');
+    const submitBtn = form.querySelector('.auth-submit');
+    submitBtn.disabled = true;
+
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    form.classList.remove('loading');
+    submitBtn.disabled = false;
+
+    if (type === 'signup') {
+      const pw = signupPwInput.value;
+      const confirm = signupPwConfirmInput.value;
+      if (pw !== confirm) {
+        signupPwConfirmInput.classList.add('error');
+        showToast('비밀번호가 일치하지 않습니다.');
+        return;
+      }
+    }
+
+    // Success transition
+    authMainView.style.display = 'none';
+    authSuccessView.style.display = 'block';
+    
+    document.getElementById('success-title').textContent = type === 'login' ? '로그인 완료!' : '가입을 환영합니다!';
+    document.getElementById('success-msg').textContent = type === 'login' ? '오늘도 즐거운 운동 되세요.' : 'FitMatch의 회원이 되신 것을 축하드려요.';
+    
+    showToast(type === 'login' ? '로그인에 성공했습니다.' : '회원가입이 완료되었습니다.');
+  }
+
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    handleSubmit(loginForm, 'login');
+  });
+
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    handleSubmit(signupForm, 'signup');
+  });
+
+  successDoneBtn.addEventListener('click', closeModal);
+</script>
 
 </body>
 </html>
